@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "915108610348",
+    "project_id": "entertainment-services-4e900",
+    "storage_bucket": "entertainment-services-4e900.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:915108610348:android:734009eab015639b00ec89",
+        "android_client_info": {
+          "package_name": "com.example.entertainment_services"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAr9j-sPVKcxsvwxDI8v0X1cQr2SUMbtTU"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
