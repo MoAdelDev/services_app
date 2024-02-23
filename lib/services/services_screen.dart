@@ -1,5 +1,6 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:entertainment_services/add/service_model.dart';
+import 'package:entertainment_services/core/data/app_data.dart';
 import 'package:entertainment_services/core/widgets/default_progress_indicator.dart';
 import 'package:entertainment_services/services/cubit/cubit/services_cubit.dart';
 import 'package:flutter/material.dart';
@@ -68,26 +69,40 @@ class ServicesScreen extends StatelessWidget {
                           child: Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
-                              CachedNetworkImage(
-                                imageUrl: service.image,
-                                width: double.infinity,
-                                height: 250.0,
-                                placeholder: (context, url) => const Center(
-                                  child: DefaultProgressIndicator(),
-                                ),
-                                errorWidget: (context, url, error) =>
-                                    const Icon(Icons.error),
-                                imageBuilder: (context, imageProvider) {
-                                  return Container(
-                                    decoration: BoxDecoration(
-                                      borderRadius: BorderRadius.circular(10.0),
-                                      image: DecorationImage(
-                                        image: imageProvider,
-                                        fit: BoxFit.cover,
+                              Stack(
+                                children: [
+                                  CachedNetworkImage(
+                                    imageUrl: service.image,
+                                    width: double.infinity,
+                                    height: 250.0,
+                                    placeholder: (context, url) => const Center(
+                                      child: DefaultProgressIndicator(),
+                                    ),
+                                    errorWidget: (context, url, error) =>
+                                        const Icon(Icons.error),
+                                    imageBuilder: (context, imageProvider) {
+                                      return Container(
+                                        decoration: BoxDecoration(
+                                          borderRadius:
+                                              BorderRadius.circular(10.0),
+                                          image: DecorationImage(
+                                            image: imageProvider,
+                                            fit: BoxFit.cover,
+                                          ),
+                                        ),
+                                      );
+                                    },
+                                  ),
+                                  if (userModel?.type == 'Admin')
+                                    IconButton(
+                                      onPressed: () =>
+                                          cubit.deleteService(service.id),
+                                      icon: const Icon(
+                                        Icons.delete,
+                                        color: Colors.redAccent,
                                       ),
                                     ),
-                                  );
-                                },
+                                ],
                               ),
                               const SizedBox(
                                 height: 10.0,

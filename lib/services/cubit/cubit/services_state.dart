@@ -15,3 +15,10 @@ final class ServicesError extends ServicesState {
   final String message;
   ServicesError({required this.message});
 }
+
+final class ServicesDeleteSuccess extends ServicesState {}
+
+final class ServicesDeleteError extends ServicesState {
+  final String message;
+  ServicesDeleteError({required this.message});
+}

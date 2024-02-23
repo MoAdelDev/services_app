@@ -58,6 +58,15 @@ class ServicesCubit extends Cubit<ServicesState> {
     }
   }
 
+  void deleteService(String id) async {
+    try {
+      await FirebaseFirestore.instance.collection('services').doc(id).delete();
+      emit(ServicesDeleteSuccess());
+    } on FirebaseException catch (error) {
+      emit(ServicesDeleteError(message: error.toString()));
+    }
+  }
+
   String getNextString(String query) {
     return query.substring(0, query.length - 1) +
         String.fromCharCode(query.codeUnitAt(query.length - 1) + 1);
