@@ -61,8 +61,9 @@ class ServicesScreen extends StatelessWidget {
                   Expanded(
                     child: ListView.separated(
                       itemBuilder: (context, index) {
-                        ServiceModel service =
-                            context.read<ServicesCubit>().services[index];
+                        ServiceModel service = cubit.filteredServices.isEmpty
+                            ? context.read<ServicesCubit>().services[index]
+                            : cubit.filteredServices[index];
                         return Padding(
                           padding: const EdgeInsets.symmetric(
                               horizontal: 12.0, vertical: 15.0),
@@ -149,7 +150,9 @@ class ServicesScreen extends StatelessWidget {
                       separatorBuilder: (context, index) => const SizedBox(
                         height: 10.0,
                       ),
-                      itemCount: cubit.services.length,
+                      itemCount: cubit.filteredServices.isEmpty
+                          ? cubit.services.length
+                          : cubit.filteredServices.length,
                     ),
                   ),
                 ],

@@ -8,6 +8,8 @@ part 'services_state.dart';
 class ServicesCubit extends Cubit<ServicesState> {
   ServicesCubit() : super(ServicesLoading());
   List<ServiceModel> services = [];
+  List<ServiceModel> filteredServices = [];
+
   String categoryTitle = '';
   void getServices(String categoryId) async {
     try {
@@ -34,23 +36,10 @@ class ServicesCubit extends Cubit<ServicesState> {
 
   void searchServiceByTitleOrAddress(String query) async {
     try {
-      var querySnapshot = await FirebaseFirestore.instance
-          .collection('services')
-          .where('title',
-              isGreaterThanOrEqualTo: query, isLessThan: getNextString(query))
-          .get();
-
-      var addressSnapshot = await FirebaseFirestore.instance
-          .collection('services')
-          .where('address',
-              isGreaterThanOrEqualTo: query, isLessThan: getNextString(query))
-          .get();
-
-      services = {...querySnapshot.docs, ...addressSnapshot.docs}
-          .map((e) => ServiceModel.fromJson(e.data()))
+      filteredServices = services
+          .where((s) => s.title.contains(query) || s.address.contains(query))
           .toList();
-
-      emit(ServicesLoaded(services: services));
+      emit(ServicesLoaded(services: filteredServices));
     } on FirebaseException catch (error) {
       emit(ServicesError(message: error.toString()));
     } catch (e) {

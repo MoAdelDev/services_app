@@ -173,7 +173,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                   ),
                                 ),
                                 iconData: Icons.home,
-                                text: 'المصالح الحكومية',
+                                text: 'المصالح العامة',
                               ),
                             ),
                           ],
